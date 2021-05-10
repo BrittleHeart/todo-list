@@ -1,0 +1,11 @@
+# git stuff
+.git/
+
+# editor
+.DS_Store
+
+# project
+.env
+node_modules/
+storage/
+dist/

@@ -1,0 +1,7 @@
+.git/
+.DS_Store
+storage/
+node_modules/
+.env.example
+Dockerfile
+docker-compose.yml

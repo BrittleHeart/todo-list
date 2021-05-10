@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  application:
+    container_name: todo-list
+    image: overblitz/silesian-project
+    ports:
+      - 3500:3500
+    volumes:
+      - ./:/app
+  database:
+    container_name: mysql_database
+    image: mysql
+    ports:
+      - 3308:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      # Enable for production
+      # MYSQL_RANDOM_ROOT_PASSWORD: true
+      MYSQL_ROOT_PASSWORD: homestead
+      MYSQL_USER: bartosz
+      MYSQL_PASSWORD: homestead
+      MYSQL_DATABASE: application_todo
+  database_dashboard:
+    container_name: dashboard
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8081:80
+    depends_on:
+      - database
+    environment:
+      PMA_HOST: database
+      PMA_ARBITRARY: 1
+
+volumes:
+  mysql_data:
