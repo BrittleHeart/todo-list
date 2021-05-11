@@ -40,6 +40,7 @@
 		"@types/knex": "^0.16.1",
 		"@types/morgan": "^1.9.2",
 		"@types/mysql": "^2.15.18",
+		"@types/nodemailer": "^6.4.1",
 		"@typescript-eslint/eslint-plugin": "^4.22.1",
 		"@typescript-eslint/parser": "^4.22.1",
 		"concurrently": "^6.1.0",
@@ -67,7 +68,8 @@
 		"knex": "^0.21.19",
 		"morgan": "^1.10.0",
 		"mysql": "^2.18.1",
-		"mysql2": "^2.2.5"
+		"mysql2": "^2.2.5",
+		"nodemailer": "^6.6.0"
 	},
 	"lint-staged": {
 		"*.{js,ts}": [
