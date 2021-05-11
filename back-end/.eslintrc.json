@@ -1,0 +1,36 @@
+{
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"env": {
+		"node": true,
+		"browser": false
+	},
+	"plugins": ["@typescript-eslint"],
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+	],
+	"rules": {
+		"arrow-body-style": ["warn", "as-needed"],
+		"quotes": ["error", "single"],
+		"no-eval": "error",
+		"no-var": "error",
+		"semi": ["error", "never"],
+		"no-unused-vars": [
+			"error",
+			{
+				"vars": "all",
+				"args": "after-used",
+				"ignoreRestSiblings": true
+			}
+		],
+		"no-duplicate-imports": [
+			"error",
+			{
+				"includeExports": true
+			}
+		]
+	}
+}
