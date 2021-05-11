@@ -9,3 +9,5 @@
 node_modules/
 storage/
 dist/
+
+app/Requests/*

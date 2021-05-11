@@ -12,5 +12,9 @@ import Routes from '../app/http/Routes'
 import Methods from '../app/interfaces/MethodEnum'
 
 Routes.addRoute(Methods.GET, '/users', (req: Request, res: Response) =>
-	res.send(`<h1>Hello: ${process.env.APP_NAME} </h1>`)
+	res.send({ hello: 'me' })
 )
+
+Routes.addRoute(Methods.POST, '/users', (req: Request, res: Response) => {
+	res.status(201).send({ hello: 'again for POST' })
+})
