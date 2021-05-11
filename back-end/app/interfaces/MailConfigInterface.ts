@@ -1,6 +1,4 @@
 /* eslint-disable */
-
-import MessageInterface from './MessageInterface'
 import UserAuthenticationInterface from './UserAuthenticationInterface'
 
 export default interface MailConfig {
@@ -9,9 +7,4 @@ export default interface MailConfig {
 	host: string
 	port: number
 	auth: UserAuthenticationInterface
-
-	sendMail(
-		message: MessageInterface,
-		callback: (err: Error, info: any) => void
-	): Promise<any>
 }
