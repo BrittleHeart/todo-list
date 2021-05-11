@@ -1,72 +1,72 @@
 {
-  "name": "back-end",
-  "version": "1.0.0",
-  "description": "back-end project for application development. This project is treated as private and shoud not be used for public.",
-  "private": true,
-  "main": "server.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./dist/server.js",
-    "dev": "concurrently \"webpack --mode development --watch \" \"nodemon node ./dist/server.js\""
-  },
-  "keywords": [
-    "bartosz",
-    "pazdur",
-    "github",
-    "overblitz",
-    "brittleheart",
-    "BrittleHeart",
-    "node",
-    "express"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/BrittleHeart"
-  },
-  "author": {
-    "name": "Bartosz Pazdur",
-    "email": "b.pazdur@yahoo.com",
-    "url": "http://blog.bartoszpazdur.pl"
-  },
-  "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.14.0",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/preset-env": "^7.14.1",
-    "@babel/preset-typescript": "^7.13.0",
-    "@types/bcrypt": "^5.0.0",
-    "@types/bookshelf": "^1.2.1",
-    "@types/cors": "^2.8.10",
-    "@types/dotenv": "^8.2.0",
-    "@types/express": "^4.17.11",
-    "@types/helmet": "^4.0.0",
-    "@types/jsonwebtoken": "^8.5.1",
-    "@types/knex": "^0.16.1",
-    "@types/mysql": "^2.15.18",
-    "@typescript-eslint/eslint-plugin": "^4.22.1",
-    "@typescript-eslint/parser": "^4.22.1",
-    "babel-loader": "^8.2.2",
-    "concurrently": "^6.1.0",
-    "eslint": "^7.26.0",
-    "eslint-config-prettier": "^8.3.0",
-    "nodemon": "^2.0.7",
-    "prettier": "^2.3.0",
-    "ts-loader": "^9.1.2",
-    "typescript": "^4.2.4",
-    "webpack": "^5.36.2",
-    "webpack-cli": "^4.7.0",
-    "webpack-node-externals": "^3.0.0"
-  },
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "bookshelf": "^1.2.0",
-    "cors": "^2.8.5",
-    "dotenv": "^9.0.1",
-    "express": "^4.17.1",
-    "helmet": "^4.6.0",
-    "jsonwebtoken": "^8.5.1",
-    "knex": "^0.21.19",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.2.5"
-  }
+	"name": "back-end",
+	"version": "1.0.0",
+	"description": "back-end project for application development. This project is treated as private and shoud not be used for public.",
+	"private": true,
+	"main": "server.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node ./dist/server.js",
+		"dev": "concurrently \"webpack --mode development --watch \" \"nodemon node ./dist/server.js\""
+	},
+	"keywords": [
+		"bartosz",
+		"pazdur",
+		"github",
+		"overblitz",
+		"brittleheart",
+		"BrittleHeart",
+		"node",
+		"express"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/BrittleHeart/todo-list"
+	},
+	"author": {
+		"name": "Bartosz Pazdur",
+		"email": "b.pazdur@yahoo.com",
+		"url": "http://blog.bartoszpazdur.pl"
+	},
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/core": "^7.14.0",
+		"@babel/plugin-proposal-class-properties": "^7.13.0",
+		"@babel/preset-env": "^7.14.1",
+		"@babel/preset-typescript": "^7.13.0",
+		"@types/bcrypt": "^5.0.0",
+		"@types/bookshelf": "^1.2.1",
+		"@types/cors": "^2.8.10",
+		"@types/dotenv": "^8.2.0",
+		"@types/express": "^4.17.11",
+		"@types/helmet": "^4.0.0",
+		"@types/jsonwebtoken": "^8.5.1",
+		"@types/knex": "^0.16.1",
+		"@types/mysql": "^2.15.18",
+		"@typescript-eslint/eslint-plugin": "^4.22.1",
+		"@typescript-eslint/parser": "^4.22.1",
+		"babel-loader": "^8.2.2",
+		"concurrently": "^6.1.0",
+		"eslint": "^7.26.0",
+		"eslint-config-prettier": "^8.3.0",
+		"nodemon": "^2.0.7",
+		"prettier": "^2.3.0",
+		"ts-loader": "^9.1.2",
+		"typescript": "^4.2.4",
+		"webpack": "^5.36.2",
+		"webpack-cli": "^4.7.0",
+		"webpack-node-externals": "^3.0.0"
+	},
+	"dependencies": {
+		"bcrypt": "^5.0.1",
+		"bookshelf": "^1.2.0",
+		"cors": "^2.8.5",
+		"dotenv": "^9.0.1",
+		"express": "^4.17.1",
+		"helmet": "^4.6.0",
+		"jsonwebtoken": "^8.5.1",
+		"knex": "^0.21.19",
+		"mysql": "^2.18.1",
+		"mysql2": "^2.2.5"
+	}
 }
