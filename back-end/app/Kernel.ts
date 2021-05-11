@@ -38,9 +38,7 @@ export default class Kernel {
 	 */
 	private async serve(callback?: any | undefined): Promise<void> {
 		if (process.env.NODE_ENV === 'development')
-			this.port
-				? Kernel.app.listen(this.port, () => callback)
-				: Kernel.app.listen(3500, () => callback)
+			this.port ? Kernel.app.listen(this.port, () => callback) : Kernel.app.listen(3500, () => callback)
 		else this.port ? Kernel.app.listen(this.port) : Kernel.app.listen(3500)
 	}
 
@@ -58,9 +56,7 @@ export default class Kernel {
 		middlewares.loadMiddleware(helmet())
 
 		// sets logging, depends on current environment (development / production)
-		DEBUG
-			? middlewares.loadMiddleware(morgan('dev'))
-			: middlewares.loadMiddleware(morgan('tiny'))
+		DEBUG ? middlewares.loadMiddleware(morgan('dev')) : middlewares.loadMiddleware(morgan('tiny'))
 
 		this.routes.bootstrapRoutes('/api/v1')
 		this.serve(console.log(`server started here http://localhost:${this.port}`))
