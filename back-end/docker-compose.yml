@@ -1,13 +1,13 @@
 version: "3.9"
 
 services:
-  application:
-    container_name: todo-list
-    image: overblitz/silesian-project
-    ports:
-      - 3500:3500
-    volumes:
-      - ./:/app
+  # application:
+  #   container_name: todo-list
+  #   image: overblitz/silesian-project
+  #   ports:
+  #     - 3500:3500
+  #   volumes:
+  #     - ./:/app
   database:
     container_name: mysql_database
     image: mysql
