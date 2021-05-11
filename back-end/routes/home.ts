@@ -10,7 +10,7 @@ export default {
 		const router: Router = Router()
 
 		router.get('/', (request: Request, response: Response) => {
-			response.send('Works')
+			response.send('Works');
 		})
 
 		return { router }
