@@ -3,8 +3,8 @@
 import cors from 'cors'
 import express, { Application } from 'express'
 import helmet from 'helmet'
-import Middleware from './middlewares/Middleware'
-import Routes from './Routes'
+import Middleware from './http/middlewares/Middleware'
+import Routes from './http/Routes'
 
 export default class Kernel {
 	/**

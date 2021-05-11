@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Application } from 'express'
 import MiddlewareInterface from '../../interfaces/MIddlewareInterface'
-import Kernel from '../Kernel'
+import Kernel from '../../Kernel'
 
 export default class Middleware implements MiddlewareInterface {
 	/**

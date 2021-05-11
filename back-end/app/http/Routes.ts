@@ -2,7 +2,7 @@
 
 import { Router, Request, Response } from 'express'
 import Methods from '../interfaces/MethodEnum'
-import Kernel from './Kernel'
+import Kernel from '../Kernel'
 
 export default class Routes {
 	/**

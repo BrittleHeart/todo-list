@@ -1,11 +1,13 @@
 import dotenv from 'dotenv'
-import Kernel from './app/http/Kernel'
+import Kernel from './app/Kernel'
 
 // Loading environment variables
 dotenv.config()
 
+const PORT: number | any = process.env.PORT || process.env.APP_PORT
+
 // bring up kernel loading
-const application: Kernel = new Kernel(3400)
+const application: Kernel = new Kernel(PORT)
 
 // loading routing
 require('./routes/api')
