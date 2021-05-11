@@ -3,6 +3,7 @@
 import cors from 'cors'
 import express, { Application } from 'express'
 import helmet from 'helmet'
+import morgan from 'morgan'
 import Middleware from './http/middlewares/Middleware'
 import Routes from './http/Routes'
 
@@ -49,9 +50,17 @@ export default class Kernel {
 	 * @return void
 	 */
 	public bootstrap(): void {
-		this.middlewares.loadMiddleware(express.json())
-		this.middlewares.loadMiddleware(cors())
-		this.middlewares.loadMiddleware(helmet())
+		const { middlewares } = this
+		const { DEBUG } = process.env
+
+		middlewares.loadMiddleware(express.json())
+		middlewares.loadMiddleware(cors())
+		middlewares.loadMiddleware(helmet())
+
+		// sets logging, depends on current environment (development / production)
+		DEBUG
+			? middlewares.loadMiddleware(morgan('dev'))
+			: middlewares.loadMiddleware(morgan('tiny'))
 
 		this.routes.bootstrapRoutes('/api/v1')
 		this.serve(console.log(`server started here http://localhost:${this.port}`))
