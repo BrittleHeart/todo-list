@@ -28,10 +28,10 @@ export default class Kernel {
 	constructor(port?: number) {
 		require('../utils')
 
-		if (env('DEBUG', '')) {
+		if (env('DEBUG', '') === 'true') {
 			this.port = port ? port : env('APP_PORT', '')
-		} else {
-			this.port = env('NODE_ENV', '')
+		} else if (env('DEBUG', '') === 'false') {
+			this.port = env('PORT', '')
 		}
 
 		// getting instances of middlewares and routes
