@@ -45,5 +45,8 @@ export default class Routes {
 	 */
 	public async bootstrapRoutes(path: string): Promise<void> {
 		Kernel.app.use(path, Routes.router)
+
+		// loading routing
+		require('../../routes/api')
 	}
 }

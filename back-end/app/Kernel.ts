@@ -16,16 +16,25 @@ export default class Kernel {
 	public static app: Application = express()
 	public middlewares: Middleware
 	public routes: Routes
-	private port?: number
+	private port?: number | string
 
 	/**
 	 * Kernel constructor
 	 *
 	 * @constructor
-	 * @param { number } port - Declates for which port should be opened
+	 * @param { number } port
+	 * @description If port is not set and DEBUG var is true, default port is set for APP_PORT var. Otherwise it's set for production port
 	 */
 	constructor(port?: number) {
-		this.port = port
+		require('../utils')
+
+		if (env('DEBUG', '')) {
+			this.port = port ? port : env('APP_PORT', '')
+		} else {
+			this.port = env('NODE_ENV', '')
+		}
+
+		// getting instances of middlewares and routes
 		this.middlewares = new Middleware()
 		this.routes = new Routes()
 	}
@@ -37,7 +46,7 @@ export default class Kernel {
 	 * @param { any } callback for potencial development
 	 */
 	private async serve(callback?: any | undefined): Promise<void> {
-		if (process.env.NODE_ENV === 'development')
+		if (env('NODE_ENV', '') === 'development')
 			this.port ? Kernel.app.listen(this.port, () => callback) : Kernel.app.listen(3500, () => callback)
 		else this.port ? Kernel.app.listen(this.port) : Kernel.app.listen(3500)
 	}
