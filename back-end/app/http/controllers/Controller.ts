@@ -34,4 +34,15 @@ export default abstract class Controller {
 	protected status(code: number): Response {
 		return this.response.status(code)
 	}
+
+	/**
+	 *
+	 * @param { T } input
+	 * @returns
+	 */
+	protected input<T>(input: T | string | number): T {
+		const { body } = this.request
+
+		return body[input]
+	}
 }
