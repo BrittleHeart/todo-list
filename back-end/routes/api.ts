@@ -33,3 +33,14 @@ Routes.addRoute(
 	},
 	[]
 )
+
+Routes.addRoute(
+	Methods.POST,
+	'/todos',
+	async (req: Request, res: Response) => {
+		const todo: TodoController = new TodoController(res, req)
+
+		return await todo.create()
+	},
+	[]
+)
