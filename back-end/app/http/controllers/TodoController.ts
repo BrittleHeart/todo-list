@@ -24,6 +24,29 @@ class TodoController extends Controller {
 			return this.status(200).json({ result })
 		})
 	}
+
+	/**
+	 * Shows the todo with id
+	 *
+	 * @returns void | Response<Error>
+	 */
+	show(): void | Response<Error> {
+		const id: number = parseInt(this.queryParam('id'))
+
+		if (isNaN(id)) return this.status(500).json({ message: 'Invalid id type value' })
+
+		this.queryBuilder.execute(
+			'Select * from todos where id = ?',
+			[id],
+			(err: QueryError | null, result: OkPacket | any) => {
+				if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+
+				if (result.length === 0) return this.status(404).send(`Todo with id = ${id} does not exist`)
+
+				return this.status(200).json({ result })
+			}
+		)
+	}
 }
 
 export default TodoController
