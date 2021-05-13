@@ -8,6 +8,24 @@ export default class QueryBuilderProvider extends Database implements CrudInterf
 	}
 
 	/**
+	 * Executes the query wiith insert / update / delete
+	 *
+	 * @param { string } query
+	 * @param { undefined | any[] | { [param: string]: any } } values
+	 * @param { Function } callback
+	 * @returns Query | Error
+	 */
+	/* eslint-disable-next-line */
+	execute<T extends OkPacket | OkPacket[] | RowDataPacket[]>(
+		query: string,
+		values?: any,
+		/* eslint-disable-next-line */
+		callback?: (err: QueryError | null, result: T, fields: FieldPacket[]) => void
+	): Error | Query {
+		return this.connection.execute(query, values, callback)
+	}
+
+	/**
 	 *
 	 * @param { undefined | any[] | { [param: string]: any } } values
 	 * @param { Function } callback
