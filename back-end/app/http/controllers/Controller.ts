@@ -36,6 +36,7 @@ export default abstract class Controller {
 	}
 
 	/**
+	 * Gets request body param
 	 *
 	 * @param { T } input
 	 * @returns
@@ -44,5 +45,17 @@ export default abstract class Controller {
 		const { body } = this.request
 
 		return body[input]
+	}
+
+	/**
+	 * Gets query parameters
+	 *
+	 * @param { string } param
+	 * @returns
+	 */
+	protected queryParam(param: string): string {
+		const { params } = this.request
+
+		return params[param]
 	}
 }
