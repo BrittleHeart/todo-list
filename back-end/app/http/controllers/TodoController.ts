@@ -80,9 +80,9 @@ class TodoController extends Controller {
 		const { validate } = this.validator
 
 		// request's vars
-		const name: string = escape(this.input('name'))
-		const description: string = this.input('description') ? escape(this.input('description')) : ''
-		const is_completed = this.input('is_completed') !== undefined ? escape(this.input('is_completed')) : false
+		const name: string = this.input('name')
+		const description: string = this.input('description') ? this.input('description') : ''
+		const is_completed = this.input('is_completed') !== undefined ? this.input('is_completed') : false
 
 		return this.queryBuilder.execute(
 			'select name from todos where name = ?',
@@ -110,11 +110,51 @@ class TodoController extends Controller {
 					'Insert into todos (name, description, is_completed) values (?,?,?)',
 					[name, description, is_completed],
 					(err: QueryError | null) => {
-						if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+						if (err) return this.status(500).send(`Something went wrong - ${err.message}`)
 
 						return this.status(201).json({ name, description, is_completed })
 					}
 				)
+			}
+		)
+	}
+
+	/**
+	 * Updates record with id
+	 *
+	 * @returns Promise<any>
+	 */
+	async update(): Promise<any> {
+		const id: number = parseInt(this.queryParam('id'))
+		const { validate } = this.validator
+		const description = this.input('description') ? this.input('description') : ''
+		const is_completed = this.input('is_completed') ? this.input('is_completed') : false
+
+		this.shape = {
+			description: yup
+				.string()
+				.trim()
+				.matches(/[a-zA-Z0-9]{3,}/)
+				.nullable(),
+			is_completed: yup.bool().optional().default(false),
+		}
+
+		if (isNaN(id) || !id)
+			return this.status(400).json({ status: 500, message: `id type found ${typeof id}, but number required` })
+
+		try {
+			await validate(this.shape, this.request.body)
+		} catch (error) {
+			return this.status(400).json({ status: error.name, message: error.message })
+		}
+
+		return this.queryBuilder.execute(
+			'update todos set description = ?, is_completed = ? where id = ?',
+			[description, is_completed, id],
+			async (err: QueryError | null) => {
+				if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+
+				return this.status(200).json({ description, is_completed })
 			}
 		)
 	}

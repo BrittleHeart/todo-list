@@ -44,3 +44,14 @@ Routes.addRoute(
 	},
 	[]
 )
+
+Routes.addRoute(
+	Methods.UPDATE,
+	'/todos/:id',
+	async (req: Request, res: Response) => {
+		const todo: TodoController = new TodoController(res, req)
+
+		return await todo.update()
+	},
+	[]
+)
