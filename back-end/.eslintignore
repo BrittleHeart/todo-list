@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env*
+.prettierrc.json
+docker*
+Dockerfile
+package*
+webpack.config.js
+tsconfig.json

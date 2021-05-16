@@ -1,13 +1,13 @@
 {
-  "compilerOptions": {
-   "module": "ES2015",
-   "target": "es5",
-   "esModuleInterop": true,
-   "experimentalDecorators": true,
-   "rootDir": "./",
-   "outDir": "./dist",
-   "strict": true,
-   "jsx": "preserve",
-   "moduleResolution": "node",
-  }
+	"compilerOptions": {
+		"module": "ES2015",
+		"target": "es5",
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"rootDir": "./",
+		"outDir": "./dist",
+		"strict": true,
+		"jsx": "preserve",
+		"moduleResolution": "node"
+	}
 }
