@@ -70,11 +70,22 @@ Routes.addRoute(
 
 Routes.addRoute(
 	Methods.GET,
-	'/login',
+	'/auth/login',
 	(req: Request, res: Response) => {
 		const users: UserController = new UserController(req, res)
 
 		return users.login()
+	},
+	[]
+)
+
+Routes.addRoute(
+	Methods.POST,
+	'/auth/register',
+	(req: Request, res: Response) => {
+		const users: UserController = new UserController(req, res)
+
+		return users.register()
 	},
 	[]
 )
