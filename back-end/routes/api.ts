@@ -10,6 +10,7 @@
 import { Request, Response } from 'express'
 import TodoController from '../app/http/controllers/TodoController'
 import UserController from '../app/http/controllers/UserController'
+import { verifyJWTToken } from '../app/http/middlewares/JWT.middleware'
 import Routes from '../app/http/Routes'
 import Methods from '../app/interfaces/MethodEnum'
 
@@ -21,7 +22,7 @@ Routes.addRoute(
 
 		return todo.index()
 	},
-	[]
+	[verifyJWTToken]
 )
 
 Routes.addRoute(
@@ -32,7 +33,7 @@ Routes.addRoute(
 
 		return todo.show()
 	},
-	[]
+	[verifyJWTToken]
 )
 
 Routes.addRoute(
@@ -43,7 +44,7 @@ Routes.addRoute(
 
 		return await todo.create()
 	},
-	[]
+	[verifyJWTToken]
 )
 
 Routes.addRoute(
@@ -54,7 +55,7 @@ Routes.addRoute(
 
 		return await todo.update()
 	},
-	[]
+	[verifyJWTToken]
 )
 
 Routes.addRoute(
@@ -65,7 +66,7 @@ Routes.addRoute(
 
 		return todo.delete()
 	},
-	[]
+	[verifyJWTToken]
 )
 
 Routes.addRoute(
@@ -87,5 +88,5 @@ Routes.addRoute(
 
 		return users.register()
 	},
-	[]
+	[verifyJWTToken]
 )

@@ -6,6 +6,7 @@ import ValidatorProvider from '../../providers/ValidatorProvider'
 import { compare, genSalt, hash } from 'bcrypt'
 import * as yup from 'yup'
 import { ObjectShape } from 'yup/lib/object'
+import { sign } from 'jsonwebtoken'
 
 export default class UserController extends Controller {
 	private queryBuilder: QueryBuilderProvider
@@ -75,7 +76,9 @@ export default class UserController extends Controller {
 				if (email !== result[0].email || !matches)
 					return this.status(401).json({ status: 401, message: 'Unauthorized access' })
 
-				return this.status(200).json({ nick: result[0].nick, email })
+				const token = sign({ nick: result[0].nick, email }, env('JWT_SECURE_KEY', '')!, { expiresIn: '2 days' })
+
+				return this.status(200).json({ token })
 			}
 		)
 	}
