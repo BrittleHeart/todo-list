@@ -1,10 +1,10 @@
 import { QueryError, OkPacket } from 'mysql2'
 import { Request, Response } from 'express'
+import * as yup from 'yup'
+import { ObjectShape } from 'yup/lib/object'
 import QueryBuilderProvider from '../../providers/QueryBuilder'
 import Controller from './Controller'
 import ValidatorProvider from '../../providers/ValidatorProvider'
-import * as yup from 'yup'
-import { ObjectShape } from 'yup/lib/object'
 
 class TodoController extends Controller {
 	private queryBuilder: QueryBuilderProvider
@@ -35,6 +35,11 @@ class TodoController extends Controller {
 		}
 	}
 
+	/**
+	 * Selects all data from todos table
+	 *
+	 * @returns void
+	 */
 	/* eslint-disable */
 	index(): void {
 		const { queryBuilder } = this
@@ -155,6 +160,35 @@ class TodoController extends Controller {
 				if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
 
 				return this.status(200).json({ description, is_completed })
+			}
+		)
+	}
+
+	/**
+	 * Drops the todo from table with id
+	 *
+	 * @returns Response<Record<string, any>> | void
+	 */
+	delete(): Response<Record<string, any>> | void {
+		const id: number = parseInt(this.queryParam('id'))
+
+		if (!id || isNaN(id))
+			return this.status(400).json({ status: 500, message: `id type found ${typeof id}, but number required` })
+
+		this.queryBuilder.execute(
+			'Select id from todos where id = ?',
+			[id],
+			(err: QueryError | null, result: OkPacket | any) => {
+				if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+
+				if (result.length === 0)
+					return this.status(400).json({ status: 400, message: `Todo with id = ${id} does not exist` })
+
+				this.queryBuilder.execute('delete from todos where id = ?', [id], (err: QueryError | null) => {
+					if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+
+					return this.status(200).json({ status: 200, message: `Record with id = ${id} has been deleted` })
+				})
 			}
 		)
 	}

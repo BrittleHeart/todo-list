@@ -55,3 +55,14 @@ Routes.addRoute(
 	},
 	[]
 )
+
+Routes.addRoute(
+	Methods.DELETE,
+	'/todos/:id',
+	(req: Request, res: Response) => {
+		const todo: TodoController = new TodoController(res, req)
+
+		return todo.delete()
+	},
+	[]
+)
