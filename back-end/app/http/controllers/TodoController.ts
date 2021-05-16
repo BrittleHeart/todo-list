@@ -59,8 +59,15 @@ class TodoController extends Controller {
 	 */
 	async create(): Promise<any> {
 		const { validate } = this.validator
-		const { name, description, is_completed } = this.request.body
 
+		// request's vars
+		const name: string = escape(this.input('name'))
+		const description: string = this.input('description') ? escape(this.input('description')) : ''
+		const is_completed = this.input('is_completed') !== undefined ? escape(this.input('is_completed')) : false
+
+		/**
+		 *
+		 */
 		const shape = {
 			name: yup
 				.string()
@@ -69,8 +76,12 @@ class TodoController extends Controller {
 				.max(255)
 				.matches(/[a-zA-Z0-9]{3,}/)
 				.required(),
-			description: yup.string().min(10).trim().optional(),
-			is_completed: yup.bool().optional(),
+			description: yup
+				.string()
+				.trim()
+				.matches(/[a-zA-Z0-9]{3,}/)
+				.nullable(),
+			is_completed: yup.bool().optional().default(false),
 		}
 
 		try {
@@ -79,37 +90,15 @@ class TodoController extends Controller {
 			return this.status(400).json({ status: error.name, message: error.message })
 		}
 
-		if (!description) {
-			this.queryBuilder.execute(
-				'Insert into todos (name, is_completed) values (?, ?)',
-				[name, is_completed],
-				(err: QueryError | null, result: OkPacket | any) => {
-					if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+		this.queryBuilder.execute(
+			'Insert into todos (name, description, is_completed) values (?,?,?)',
+			[name, description, is_completed],
+			(err: QueryError | null) => {
+				if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
 
-					return this.status(201).json({ result })
-				}
-			)
-		} else if (!is_completed) {
-			this.queryBuilder.execute(
-				'Insert into todos (name, description) values (?,?)',
-				[name, description],
-				(err: QueryError | null, result: OkPacket | any) => {
-					if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
-
-					return this.status(201).json({ result })
-				}
-			)
-		} else {
-			this.queryBuilder.execute(
-				'Insert into todos (name, description, is_completed) values (?,?,?)',
-				[name, description, is_completed],
-				(err: QueryError | null, result: OkPacket | any) => {
-					if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
-
-					return this.status(201).json({ result })
-				}
-			)
-		}
+				return this.status(201).json({ name, description, is_completed })
+			}
+		)
 	}
 }
 
