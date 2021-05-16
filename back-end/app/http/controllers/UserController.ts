@@ -49,7 +49,10 @@ export default class UserController extends Controller {
 		const password: string = this.input('password')
 
 		if (!email || !password)
-			return this.status(400).json({ status: 400, message: 'E-mail and password values are required' })
+			return this.status(400).json({
+				status: 400,
+				message: 'E-mail and password values are required',
+			})
 
 		try {
 			this.shape = {
@@ -59,24 +62,38 @@ export default class UserController extends Controller {
 
 			await validate(this.shape, this.request.body)
 		} catch (error) {
-			return this.status(400).json({ status: error.name, message: error.message })
+			return this.status(400).json({
+				status: error.name,
+				message: error.message,
+			})
 		}
 
 		queryBuilder.select(
 			'select nick, email, password from users where email = ?',
 			[email],
 			async (err: QueryError | null, result: OkPacket | any) => {
-				if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+				if (err)
+					return this.status(400).send(`Something went wrong - ${err.message}`)
 
 				if (result.length === 0)
-					return this.status(404).json({ status: 404, message: `No user found with email = ${email}` })
+					return this.status(404).json({
+						status: 404,
+						message: `No user found with email = ${email}`,
+					})
 
 				const matches: boolean = await compare(password, result[0].password)
 
 				if (email !== result[0].email || !matches)
-					return this.status(401).json({ status: 401, message: 'Unauthorized access' })
+					return this.status(401).json({
+						status: 401,
+						message: 'Unauthorized access',
+					})
 
-				const token = sign({ nick: result[0].nick, email }, env('JWT_SECURE_KEY', '')!, { expiresIn: '2 days' })
+				const token = sign(
+					{ nick: result[0].nick, email },
+					env('JWT_SECURE_KEY', '')!,
+					{ expiresIn: '2 days' }
+				)
 
 				return this.status(200).json({ token })
 			}
@@ -97,29 +114,46 @@ export default class UserController extends Controller {
 		let password: string = this.input('password')
 
 		if (!nick || !email || !password)
-			return this.status(400).json({ status: 400, message: 'Nick, E-mail and password values are required' })
+			return this.status(400).json({
+				status: 400,
+				message: 'Nick, E-mail and password values are required',
+			})
 
 		try {
 			await validate(this.shape, this.request.body)
 		} catch (error) {
-			return this.status(400).json({ status: error.name, message: error.message })
+			return this.status(400).json({
+				status: error.name,
+				message: error.message,
+			})
 		}
 
 		queryBuilder.execute(
 			'Select email from users where email = ?',
 			[email],
 			async (err: QueryError | null, result: OkPacket | any) => {
-				if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+				if (err)
+					return this.status(400).send(`Something went wrong - ${err.message}`)
 
 				if (result.length > 0)
-					return this.status(400).json({ status: 400, message: `User with email = ${email} already exists` })
+					return this.status(400).json({
+						status: 400,
+						message: `User with email = ${email} already exists`,
+					})
 
 				const salt = await genSalt(10)
-				if (salt.length === 0) return this.status(500).json({ status: 500, message: 'Could not generate salt' })
+				if (salt.length === 0)
+					return this.status(500).json({
+						status: 500,
+						message: 'Could not generate salt',
+					})
 
 				const password_hashed = await hash(password, salt)
 				if (password_hashed.length === 0)
-					return this.status(500).json({ status: 500, message: 'Could not generate salt' })
+					return this.status(500).json({
+						status: 500,
+						message: 'Could not generate salt',
+					})
 
 				password = password_hashed
 
@@ -127,7 +161,10 @@ export default class UserController extends Controller {
 					'Insert into users (nick, email, password) values (?, ?, ?)',
 					[nick, email, password],
 					(err: QueryError | null) => {
-						if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+						if (err)
+							return this.status(400).send(
+								`Something went wrong - ${err.message}`
+							)
 
 						return this.status(201).json({ nick, email })
 					}

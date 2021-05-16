@@ -28,17 +28,35 @@ export default class Routes {
 	): Promise<Router> {
 		switch (method) {
 			case Methods.GET:
-				Routes.router.get(route, middlewares, (request: Request, response: Response) => controller(request, response))
+				Routes.router.get(
+					route,
+					middlewares,
+					(request: Request, response: Response) =>
+						controller(request, response)
+				)
 				break
 			case Methods.POST:
-				Routes.router.post(route, middlewares, (request: Request, response: Response) => controller(request, response))
+				Routes.router.post(
+					route,
+					middlewares,
+					(request: Request, response: Response) =>
+						controller(request, response)
+				)
 				break
 			case Methods.UPDATE:
-				Routes.router.put(route, middlewares, (request: Request, response: Response) => controller(request, response))
+				Routes.router.put(
+					route,
+					middlewares,
+					(request: Request, response: Response) =>
+						controller(request, response)
+				)
 				break
 			case Methods.DELETE:
-				Routes.router.delete(route, middlewares, (request: Request, response: Response) =>
-					controller(request, response)
+				Routes.router.delete(
+					route,
+					middlewares,
+					(request: Request, response: Response) =>
+						controller(request, response)
 				)
 				break
 		}

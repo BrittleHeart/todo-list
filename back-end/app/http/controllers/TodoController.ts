@@ -44,13 +44,18 @@ class TodoController extends Controller {
 	index(): void {
 		const { queryBuilder } = this
 
-		queryBuilder.select('Select * from todos', [], (err: QueryError | null, result: OkPacket | any) => {
-			if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+		queryBuilder.select(
+			'Select * from todos',
+			[],
+			(err: QueryError | null, result: OkPacket | any) => {
+				if (err)
+					return this.status(400).send(`Something went wrong - ${err.message}`)
 
-			if (result.length === 0) return this.status(404).send('No todos found')
+				if (result.length === 0) return this.status(404).send('No todos found')
 
-			return this.status(200).json({ result })
-		})
+				return this.status(200).json({ result })
+			}
+		)
 	}
 
 	/**
@@ -61,15 +66,18 @@ class TodoController extends Controller {
 	show(): void | Response<Error> {
 		const id: number = parseInt(this.queryParam('id'))
 
-		if (isNaN(id)) return this.status(500).json({ message: 'Invalid id type value' })
+		if (isNaN(id))
+			return this.status(500).json({ message: 'Invalid id type value' })
 
 		this.queryBuilder.execute(
 			'Select * from todos where id = ?',
 			[id],
 			(err: QueryError | null, result: OkPacket | any) => {
-				if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+				if (err)
+					return this.status(400).send(`Something went wrong - ${err.message}`)
 
-				if (result.length === 0) return this.status(404).send(`Todo with id = ${id} does not exist`)
+				if (result.length === 0)
+					return this.status(404).send(`Todo with id = ${id} does not exist`)
 
 				return this.status(200).json({ result })
 			}
@@ -86,15 +94,21 @@ class TodoController extends Controller {
 
 		// request's vars
 		const name: string = this.input('name')
-		const description: string = this.input('description') ? this.input('description') : ''
-		const is_completed = this.input('is_completed') !== undefined ? this.input('is_completed') : false
+		const description: string = this.input('description')
+			? this.input('description')
+			: ''
+		const is_completed =
+			this.input('is_completed') !== undefined
+				? this.input('is_completed')
+				: false
 
 		return this.queryBuilder.execute(
 			'select name from todos where name = ?',
 			[name],
 			async (err: QueryError | null, result: OkPacket | any) => {
 				// looking for errors
-				if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+				if (err)
+					return this.status(400).send(`Something went wrong - ${err.message}`)
 
 				// check if record has been found
 				if (result.length > 0)
@@ -107,7 +121,10 @@ class TodoController extends Controller {
 				try {
 					await validate(this.shape, this.request.body)
 				} catch (error) {
-					return this.status(400).json({ status: error.name, message: error.message })
+					return this.status(400).json({
+						status: error.name,
+						message: error.message,
+					})
 				}
 
 				// excetuing the query
@@ -115,7 +132,10 @@ class TodoController extends Controller {
 					'Insert into todos (name, description, is_completed) values (?,?,?)',
 					[name, description, is_completed],
 					(err: QueryError | null) => {
-						if (err) return this.status(500).send(`Something went wrong - ${err.message}`)
+						if (err)
+							return this.status(500).send(
+								`Something went wrong - ${err.message}`
+							)
 
 						return this.status(201).json({ name, description, is_completed })
 					}
@@ -132,8 +152,12 @@ class TodoController extends Controller {
 	async update(): Promise<any> {
 		const id: number = parseInt(this.queryParam('id'))
 		const { validate } = this.validator
-		const description = this.input('description') ? this.input('description') : ''
-		const is_completed = this.input('is_completed') ? this.input('is_completed') : false
+		const description = this.input('description')
+			? this.input('description')
+			: ''
+		const is_completed = this.input('is_completed')
+			? this.input('is_completed')
+			: false
 
 		this.shape = {
 			description: yup
@@ -145,19 +169,26 @@ class TodoController extends Controller {
 		}
 
 		if (isNaN(id) || !id)
-			return this.status(400).json({ status: 500, message: `id type found ${typeof id}, but number required` })
+			return this.status(400).json({
+				status: 500,
+				message: `id type found ${typeof id}, but number required`,
+			})
 
 		try {
 			await validate(this.shape, this.request.body)
 		} catch (error) {
-			return this.status(400).json({ status: error.name, message: error.message })
+			return this.status(400).json({
+				status: error.name,
+				message: error.message,
+			})
 		}
 
 		return this.queryBuilder.execute(
 			'update todos set description = ?, is_completed = ? where id = ?',
 			[description, is_completed, id],
 			async (err: QueryError | null) => {
-				if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+				if (err)
+					return this.status(400).send(`Something went wrong - ${err.message}`)
 
 				return this.status(200).json({ description, is_completed })
 			}
@@ -173,22 +204,39 @@ class TodoController extends Controller {
 		const id: number = parseInt(this.queryParam('id'))
 
 		if (!id || isNaN(id))
-			return this.status(400).json({ status: 500, message: `id type found ${typeof id}, but number required` })
+			return this.status(400).json({
+				status: 500,
+				message: `id type found ${typeof id}, but number required`,
+			})
 
 		this.queryBuilder.execute(
 			'Select id from todos where id = ?',
 			[id],
 			(err: QueryError | null, result: OkPacket | any) => {
-				if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+				if (err)
+					return this.status(400).send(`Something went wrong - ${err.message}`)
 
 				if (result.length === 0)
-					return this.status(400).json({ status: 400, message: `Todo with id = ${id} does not exist` })
+					return this.status(400).json({
+						status: 400,
+						message: `Todo with id = ${id} does not exist`,
+					})
 
-				this.queryBuilder.execute('delete from todos where id = ?', [id], (err: QueryError | null) => {
-					if (err) return this.status(400).send(`Something went wrong - ${err.message}`)
+				this.queryBuilder.execute(
+					'delete from todos where id = ?',
+					[id],
+					(err: QueryError | null) => {
+						if (err)
+							return this.status(400).send(
+								`Something went wrong - ${err.message}`
+							)
 
-					return this.status(200).json({ status: 200, message: `Record with id = ${id} has been deleted` })
-				})
+						return this.status(200).json({
+							status: 200,
+							message: `Record with id = ${id} has been deleted`,
+						})
+					}
+				)
 			}
 		)
 	}

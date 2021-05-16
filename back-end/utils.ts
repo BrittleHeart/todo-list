@@ -6,7 +6,10 @@
  * @returns string | undefined
  */
 const _global = global /* node */ as any
-_global.env = function (value: string, defaultVal: string | number): string | number | undefined {
+_global.env = function (
+	value: string,
+	defaultVal: string | number
+): string | number | undefined {
 	return process.env[value] ? process.env[value] : defaultVal
 }
 

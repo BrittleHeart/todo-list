@@ -33,7 +33,10 @@ export default class Mailer {
 	 * @return void
 	 */
 	/* eslint-disable no-unused-vars */
-	sendMail(message: MessageInterface, callback?: (err: Error | null, info: Record<string, any>) => void): void {
+	sendMail(
+		message: MessageInterface,
+		callback?: (err: Error | null, info: Record<string, any>) => void
+	): void {
 		const transportConfig: MailConfigInterface = {
 			host: this.host,
 			port: this.port,
