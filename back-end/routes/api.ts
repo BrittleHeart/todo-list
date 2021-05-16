@@ -9,6 +9,7 @@
 
 import { Request, Response } from 'express'
 import TodoController from '../app/http/controllers/TodoController'
+import UserController from '../app/http/controllers/UserController'
 import Routes from '../app/http/Routes'
 import Methods from '../app/interfaces/MethodEnum'
 
@@ -63,6 +64,17 @@ Routes.addRoute(
 		const todo: TodoController = new TodoController(res, req)
 
 		return todo.delete()
+	},
+	[]
+)
+
+Routes.addRoute(
+	Methods.GET,
+	'/users',
+	(req: Request, res: Response) => {
+		const users: UserController = new UserController(req, res)
+
+		return users.index()
 	},
 	[]
 )

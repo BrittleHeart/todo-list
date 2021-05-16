@@ -1,10 +1,12 @@
-import { QueryError, RowDataPacket } from 'mysql2'
+import { OkPacket, QueryError } from 'mysql2'
 import { Request, Response } from 'express'
 import QueryBuilderProvider from '../../providers/QueryBuilder'
 import Controller from './Controller'
+import ValidatorProvider from '../../providers/ValidatorProvider'
 
 export default class UserController extends Controller {
 	private queryBuilder: QueryBuilderProvider
+	private validator: ValidatorProvider
 
 	/**
 	 *
@@ -15,6 +17,7 @@ export default class UserController extends Controller {
 		super(response, request)
 
 		this.queryBuilder = new QueryBuilderProvider()
+		this.validator = new ValidatorProvider(request, response)
 	}
 
 	/**
@@ -23,14 +26,16 @@ export default class UserController extends Controller {
 	 * @returns void
 	 */
 	public index(): void {
-		this.queryBuilder.select('Select * from users', [], (err: QueryError | null, result: RowDataPacket[]) => {
+		const { queryBuilder } = this
+
+		queryBuilder.select('Select * from users', [], (err: QueryError | null, result: OkPacket | any) => {
 			if (err) {
 				return this.status(400).send(`Something went wrong - ${err.message}`)
 			}
 
-			if (result.length === 0) return this.status(404).send('No users found}')
+			if (result.length === 0) return this.status(404).send('No users found')
 
-			return this.status(200).send(result)
+			return this.status(200).json({ result })
 		})
 	}
 }
