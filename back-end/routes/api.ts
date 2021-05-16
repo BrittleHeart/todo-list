@@ -70,11 +70,11 @@ Routes.addRoute(
 
 Routes.addRoute(
 	Methods.GET,
-	'/users',
+	'/login',
 	(req: Request, res: Response) => {
 		const users: UserController = new UserController(req, res)
 
-		return users.index()
+		return users.login()
 	},
 	[]
 )
