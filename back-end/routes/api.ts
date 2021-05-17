@@ -14,6 +14,11 @@ import { verifyJWTToken } from '../app/http/middlewares/JWT.middleware'
 import Routes from '../app/http/Routes'
 import Methods from '../app/interfaces/MethodEnum'
 
+/* ------------------------------------------
+
+TODOS routes
+
+------------------------------------------ */
 Routes.addRoute(
 	Methods.GET,
 	'/todos',
@@ -69,6 +74,11 @@ Routes.addRoute(
 	[verifyJWTToken]
 )
 
+/* ------------------------------------------
+
+Users routes
+
+------------------------------------------ */
 Routes.addRoute(
 	Methods.GET,
 	'/auth/login',
