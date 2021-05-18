@@ -38,7 +38,7 @@ export default class App extends Vue {
 
 .app__wrapper {
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 10px auto;
   background-color: #ffffff;
   padding: 30px;
   border-radius: 5px;
@@ -66,5 +66,49 @@ export default class App extends Vue {
 
 .app__wrapper .app__authenticate {
   text-align: center;
+}
+
+.user-avatar img {
+  width: 8rem;
+  margin-bottom: 40px;
+}
+
+.form-group {
+  margin: 10px 0;
+}
+
+.form-group label {
+  display: block;
+  text-align: left;
+}
+
+.form-group input {
+  padding: 8px 7px;
+  width: 100%;
+  outline: none;
+  border: 1px solid rgba(40, 32, 32, 0.7);
+  transition: border 0.3s ease-in;
+  background: none;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.form-group .password-action {
+  text-align: right;
+  cursor: pointer;
+}
+
+.form-group .password-action .active {
+  color: rgba(145, 145, 250, 0.8);
+}
+
+.form-group input:focus {
+  border: 2px solid rgba(145, 145, 250, 0.8);
+}
+
+::placeholder {
+  color: rgb(0, 0, 0);
+  opacity: 1;
 }
 </style>

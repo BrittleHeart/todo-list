@@ -6,9 +6,9 @@
 
 body {
     min-width: 100vw;
-    background-color: #f9f9f9f9;
+    background-color: rgba(177, 177, 177, 0.98);
 }
 
 body, html {
-    max-height: 100vh;
+    min-height: 100vh;
 }
