@@ -12,17 +12,19 @@
           placeholder="type your email here .."
           autocomplete="email"
           v-model="user.email">
-      <p>{{ user.email }}</p>
     </div>
     <div class="form-group">
       <label for="signInPassword">Password:</label>
       <input
-          type="password"
+          :type="password"
           id="signInPassword"
           placeholder="type your password here .."
           autocomplete="password"
           v-model="user.password">
-      <p>{{ user.password }}</p>
+      <div class="password-action">
+        <p v-if="passwordShown" @click="passwordShown = false" :class="{active: password}">hide password</p>
+        <p v-else @click="passwordShown = true">show password</p>
+      </div>
     </div>
 
     <button class="">sign-in</button>
@@ -35,9 +37,14 @@ import IUser from "@/interfaces/IUser"
 
 @Options({name: 'auth-banner'})
 export default class AuthBanner extends Vue {
+  passwordShown: boolean = false
   user: IUser = {
     email: '',
     password: ''
+  }
+
+  get password(): string {
+    return this.passwordShown ? 'text' : 'password'
   }
 
   async signIn() {
@@ -57,7 +64,7 @@ export default class AuthBanner extends Vue {
   }
 
   .form-group label {
-    display: none ;
+    display: none;
   }
 
   .form-group input {
@@ -70,6 +77,15 @@ export default class AuthBanner extends Vue {
     font-family: 'Open Sans', sans-serif;
     border-radius: 3px;
     margin-bottom: 10px;
+  }
+
+  .form-group .password-action {
+    text-align: right;
+    cursor: pointer;
+  }
+
+  .form-group .password-action .active {
+    color: rgba(145, 145, 250, 0.8);
   }
 
   .form-group input:focus {
