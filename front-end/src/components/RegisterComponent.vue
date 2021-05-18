@@ -40,6 +40,7 @@
 import {Options, Vue} from "vue-class-component"
 import IUser from "@/interfaces/IUser";
 import Button from "@/components/Button.vue";
+import axios, {AxiosResponse} from 'axios'
 
 @Options({name: 'register-component',
   components: {Button}
@@ -57,7 +58,17 @@ export default class RegisterComponent extends Vue {
   }
 
   async signUp() {
-    console.log('registered')
+    const response: AxiosResponse<any> = await axios.post('http://localhost:3500/api/v1/auth/register', {
+      nick: this.user.nick,
+      email: this.user.email,
+      password: this.user.password
+    })
+
+    const {status} = response
+    if(status === 400 || status === 500)
+      throw new Error('Account could not be created')
+
+    console.log('Account created')
   }
 }
 </script>
