@@ -98,5 +98,5 @@ Routes.addRoute(
 
 		return users.register()
 	},
-	[verifyJWTToken]
+	[]
 )
