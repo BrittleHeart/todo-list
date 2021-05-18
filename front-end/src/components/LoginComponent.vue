@@ -1,4 +1,5 @@
 <template>
+  <p v-if="error">{{ error }}</p>
   <form @submit.prevent="signIn">
     <div class="form-group">
       <label for="signInEmail">Email address:</label>
@@ -30,17 +31,18 @@
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component'
 import IUser from '../interfaces/IUser'
-import Button from "@/components/Button.vue";
+import Button from "@/components/Button.vue"
+import axios, {AxiosResponse} from 'axios'
 
 @Options({name: 'login-component',
   components: {Button}
 })
 export default class LoginComponent extends Vue {
   passwordShown: boolean = false
+  error: string = ''
   user: IUser = {
     email: '',
     password: '',
-    nick: ''
   }
 
   get password() {
@@ -48,7 +50,19 @@ export default class LoginComponent extends Vue {
   }
 
   async signIn() {
-    console.log('Hello')
+    const response: AxiosResponse<any> = await axios.post('http://localhost:3500/api/v1/auth/login', {
+      email: this.user.email,
+      password: this.user.password
+    })
+
+    const { data } = response
+
+    if (data.status === 401) {
+      this.error = 'Unauthorized access'
+      return
+    }
+
+    console.log(data.token)
   }
 }
 </script>

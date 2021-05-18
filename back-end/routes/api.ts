@@ -80,7 +80,7 @@ Users routes
 
 ------------------------------------------ */
 Routes.addRoute(
-	Methods.GET,
+	Methods.POST,
 	'/auth/login',
 	(req: Request, res: Response) => {
 		const users: UserController = new UserController(req, res)
