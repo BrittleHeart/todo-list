@@ -28,17 +28,17 @@ export default class App extends Vue {
 
 <style>
 #app {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
   height: 100vh;
   padding: 0 10px;
 }
 
 .app__wrapper {
   width: 100%;
-  margin: 0 auto 10px auto;
+  margin: 10px auto;
   background-color: #ffffff;
   padding: 30px;
   border-radius: 5px;
@@ -47,7 +47,7 @@ export default class App extends Vue {
 
 .app__heading {
   text-align: center;
-  margin-bottom: 40px;
+  margin: 40px 0;
 }
 
 .app__header {
@@ -56,6 +56,7 @@ export default class App extends Vue {
   text-transform: uppercase;
   font-size: 30px;
   line-height: 1.5;
+  margin: 10px 0;
 }
 
 .app__desc {
@@ -88,6 +89,7 @@ export default class App extends Vue {
   outline: none;
   border: 1px solid rgba(40, 32, 32, 0.7);
   transition: border 0.3s ease-in;
+  font-size: 16px;
   background: none;
   font-family: 'Open Sans', sans-serif;
   border-radius: 3px;
@@ -97,6 +99,7 @@ export default class App extends Vue {
 .form-group .password-action {
   text-align: right;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .form-group .password-action .active {

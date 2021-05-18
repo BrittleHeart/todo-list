@@ -23,14 +23,17 @@
     <p v-else @click="passwordShown = true">show password</p>
   </div>
 
-  <button class="">send email link</button>
+  <Button name="send email link" />
 </template>
 
 <script lang="ts">
 import {Options, Vue} from "vue-class-component"
 import IUser from "../interfaces/IUser";
+import Button from "@/components/Button.vue";
 
-@Options({name: 'forgot-component'})
+@Options({name: 'forgot-component',
+  components: {Button}
+})
 export default class RegisterComponent extends Vue {
   passwordShown: boolean = false
   password_confirm: string = ''

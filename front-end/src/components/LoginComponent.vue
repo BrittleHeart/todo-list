@@ -23,15 +23,18 @@
       </div>
     </div>
 
-    <button class="">sign-in</button>
+    <Button name="authenticate"/>
   </form>
 </template>
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component'
 import IUser from '../interfaces/IUser'
+import Button from "@/components/Button.vue";
 
-@Options({name: 'login-component'})
+@Options({name: 'login-component',
+  components: {Button}
+})
 export default class LoginComponent extends Vue {
   passwordShown: boolean = false
   user: IUser = {
@@ -49,7 +52,3 @@ export default class LoginComponent extends Vue {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

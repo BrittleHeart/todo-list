@@ -42,7 +42,7 @@ export default class AuthBanner extends Vue {
 
 <style scoped>
   .account-action {
-    margin-top: 20px;
+    margin-top: 25px;
   }
 
   .account-action a {

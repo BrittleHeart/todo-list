@@ -32,15 +32,18 @@
       </div>
     </div>
 
-    <button class="">sign-up</button>
+    <Button name="register account" />
   </form>
 </template>
 
 <script lang="ts">
 import {Options, Vue} from "vue-class-component"
 import IUser from "@/interfaces/IUser";
+import Button from "@/components/Button.vue";
 
-@Options({name: 'register-component'})
+@Options({name: 'register-component',
+  components: {Button}
+})
 export default class RegisterComponent extends Vue {
   passwordShown: boolean = false
   user: IUser = {
