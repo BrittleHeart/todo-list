@@ -1,10 +1,9 @@
 <template>
-      <h1 class="app__header">overdoes</h1>
-      <p class="app__desc">save your do's here</p>
+  <header class="app__heading">
+    <h1 class="app__header">simplest todo-list</h1>
+    <p class="app__desc">save your do's here</p>
+  </header>
   <div class="wrapper">
-    <header class="app__heading">
-    </header>
-
     <section class="app__authenticate" role="banner">
       <auth-banner/>
     </section>
@@ -33,7 +32,7 @@ export default class App extends Vue {
 
 body {
   min-width: 100vw;
-  background-color: #e5e4e4;
+  background-color: #f9f9f9f9;
 }
 
 body, html {
@@ -49,7 +48,7 @@ body, html {
 }
 
 .wrapper {
-  width: 45%;
+  width: 30%;
   margin: 0 auto;
   background-color: #ffffff;
   padding: 30px;
@@ -59,6 +58,7 @@ body, html {
 
 .app__heading {
   text-align: center;
+  margin-bottom: 40px;
 }
 
 .app__header {
@@ -70,7 +70,12 @@ body, html {
 }
 
 .app__desc {
+  font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   font-size: 18px;
+}
+
+.wrapper .app__authenticate{
+  text-align: center;
 }
 </style>

@@ -39,7 +39,7 @@ export default class AuthBanner extends Vue {
   }
 
   async signIn() {
-
+    console.log('Hello')
   }
 }
 </script>
