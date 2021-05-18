@@ -1,0 +1,14 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 100vw;
+    background-color: #f9f9f9f9;
+}
+
+body, html {
+    max-height: 100vh;
+}
