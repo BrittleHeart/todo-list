@@ -32,14 +32,14 @@
       </div>
     </div>
 
-    <Button name="register account" />
+    <Button name="register account" button-type="submit" />
   </form>
 </template>
 
 <script lang="ts">
 import {Options, Vue} from "vue-class-component"
 import IUser from "@/interfaces/IUser";
-import Button from "@/components/Button.vue";
+import Button from "@/components/atoms/Button.vue";
 import axios, {AxiosResponse} from 'axios'
 
 @Options({name: 'register-component',

@@ -23,13 +23,13 @@
     <p v-else @click="passwordShown = true">show password</p>
   </div>
 
-  <Button name="send email link" />
+  <Button name="send email link" button-type="submit" />
 </template>
 
 <script lang="ts">
 import {Options, Vue} from "vue-class-component"
 import IUser from "../interfaces/IUser";
-import Button from "@/components/Button.vue";
+import Button from "@/components/atoms/Button.vue";
 
 @Options({name: 'forgot-component',
   components: {Button}
