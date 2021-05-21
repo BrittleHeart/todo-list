@@ -78,11 +78,6 @@ export default class App extends Vue {
   margin: 10px 0;
 }
 
-.form-group label {
-  display: block;
-  text-align: left;
-}
-
 .form-group input {
   padding: 8px 7px;
   width: 100%;
