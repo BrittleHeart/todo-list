@@ -170,7 +170,7 @@ class TodoController extends Controller {
 
 		if (isNaN(id) || !id)
 			return this.status(400).json({
-				status: 500,
+				status: 400,
 				message: `id type found ${typeof id}, but number required`,
 			})
 
