@@ -68,11 +68,15 @@ export default class Routes {
 	 * bootstraping the routes
 	 *
 	 * @param { string } path
+	 * @param { string } resource
+	 * @note If resource is undefined - default resouce is api
 	 */
-	public async bootstrapRoutes(path: string): Promise<void> {
+	public async bootstrapRoutes(path: string, resource?: string): Promise<void> {
 		Kernel.app.use(path, Routes.router)
 
 		// loading routing
-		require('../../routes/api')
+		!resource
+			? require('../../routes/api')
+			: require(`../../routes/${resource}`)
 	}
 }
